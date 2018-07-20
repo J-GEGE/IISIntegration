@@ -151,7 +151,7 @@ namespace Microsoft.AspNetCore.Server.IntegrationTesting
             {
                 return;
             }
-            
+
             var sw = Stopwatch.StartNew();
 
             while (sw.Elapsed < _timeout)
