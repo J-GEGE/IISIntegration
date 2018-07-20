@@ -14,7 +14,7 @@ ASPNETCORE_SHIM_CONFIG::Populate(
     IHttpApplication *pHttpApplication
 )
 {
-    STRU                            strHostingModel;
+    STACK_STRU(strHostingModel, 12);
     STRU                            strApplicationFullPath;
     IAppHostAdminManager           *pAdminManager = NULL;
     CComPtr<IAppHostElement>        pAspNetCoreElement;

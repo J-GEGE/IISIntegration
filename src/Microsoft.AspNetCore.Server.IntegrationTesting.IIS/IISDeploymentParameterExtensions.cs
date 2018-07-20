@@ -40,7 +40,7 @@ namespace Microsoft.AspNetCore.Server.IntegrationTesting.IIS
         }
 
         public static void PrependAspNetCoreSectionInWebConfig(this IISDeploymentParameters parameters, string key, string value)
-            => ModifyAttributeInWebConfig(parameters, key, value, section: "aspNetCore");
+            => PrependAttributeInWebConfig(parameters, key, value, section: "aspNetCore");
 
         public static void PrependAttributeInWebConfig(this IISDeploymentParameters parameters, string key, string value, string section)
         {
