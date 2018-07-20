@@ -280,8 +280,9 @@ namespace Microsoft.AspNetCore.Server.IntegrationTesting.IIS
             if (DeploymentParameters.PublishApplicationBeforeDeployment)
             {
                 // For published apps, prefer the content in the web.config, but update it.
-                IISDeploymentParameters.ModifyAspNetCoreSectionInWebConfig(key: "hostingModel",
+                IISDeploymentParameters.PrependAspNetCoreSectionInWebConfig(key: "hostingModel",
                     value: DeploymentParameters.HostingModel == HostingModel.InProcess ? "inprocess" : "");
+
                 IISDeploymentParameters.ModifyHandlerSectionInWebConfig(key: "modules", value: DeploymentParameters.AncmVersion.ToString());
                 ModifyDotNetExePathInWebConfig();
                 serverConfig = RemoveRedundantElements(serverConfig);

@@ -146,6 +146,21 @@ namespace Microsoft.AspNetCore.Server.IISIntegration.FunctionalTests
             Assert.Contains(TestSink.Writes, context => context.Message.Contains("Application is running inside IIS process but is not configured to use IIS server"));
         }
 
+        [ConditionalFact]
+        public async Task CheckInvalidHostingModelParameter()
+        {
+            var deploymentParameters = GetBaseDeploymentParameters();
+            deploymentParameters.ModifyAspNetCoreSectionInWebConfig("hostingModel", "bogus");
+
+            var deploymentResult = await DeployAsync(deploymentParameters);
+
+            var response = await deploymentResult.RetryingHttpClient.GetAsync("HelloWorld");
+
+            Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+
+            EventLogHelpers.VerifyEventLogEvent(TestSink, "Unknown hosting model bogus. Please specify either hostingModel=\"inprocess\" or hostingModel=\"outofprocess\" in the web.config file.");
+        }
+
         // Defaults to inprocess specific deployment parameters
         public static IISDeploymentParameters GetBaseDeploymentParameters(string site = "InProcessWebSite")
         {

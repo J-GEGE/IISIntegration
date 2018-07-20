@@ -39,6 +39,17 @@ namespace Microsoft.AspNetCore.Server.IntegrationTesting.IIS
             });
         }
 
+        public static void PrependAspNetCoreSectionInWebConfig(this IISDeploymentParameters parameters, string key, string value)
+            => ModifyAttributeInWebConfig(parameters, key, value, section: "aspNetCore");
+
+        public static void PrependAttributeInWebConfig(this IISDeploymentParameters parameters, string key, string value, string section)
+        {
+            parameters.WebConfigActionList.Insert(0, (element) =>
+            {
+                element.Descendants(section).SingleOrDefault().SetAttributeValue(key, value);
+            });
+        }
+
         public static void AddHttpsToServerConfig(this IISDeploymentParameters parameters)
         {
             parameters.ServerConfigActionList.Add(
