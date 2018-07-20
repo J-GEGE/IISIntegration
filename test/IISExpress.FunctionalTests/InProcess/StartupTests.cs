@@ -50,6 +50,8 @@ namespace Microsoft.AspNetCore.Server.IISIntegration.FunctionalTests
             var response = await deploymentResult.RetryingHttpClient.GetAsync("HelloWorld");
 
             Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
+
+            EventLogHelpers.VerifyEventLogEvent(TestSink, @"Invalid or unknown processPath provided in web\.config: processPath = '.+', ErrorCode = '0x80070002'\.");
         }
 
         [ConditionalFact]

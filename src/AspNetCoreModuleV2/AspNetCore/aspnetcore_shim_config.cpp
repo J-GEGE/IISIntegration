@@ -3,6 +3,7 @@
 
 #include "aspnetcore_shim_config.h"
 
+#include "EventLog.h"
 #include "config_utility.h"
 #include "hostfxr_utility.h"
 #include "ahutil.h"
@@ -13,7 +14,7 @@ ASPNETCORE_SHIM_CONFIG::Populate(
     IHttpApplication *pHttpApplication
 )
 {
-    STACK_STRU(strHostingModel, 12);
+    STRU                            strHostingModel;
     STRU                            strApplicationFullPath;
     IAppHostAdminManager           *pAdminManager = NULL;
     CComPtr<IAppHostElement>        pAspNetCoreElement;
@@ -49,6 +50,7 @@ ASPNETCORE_SHIM_CONFIG::Populate(
     else
     {
         // block unknown hosting value
+        EVENTLOG(g_hEventLog, UNKNOWN_HOSTING_MODEL_ERROR, strHostingModel.QueryStr());
         RETURN_IF_FAILED(HRESULT_FROM_WIN32(ERROR_NOT_SUPPORTED));
     }
 
