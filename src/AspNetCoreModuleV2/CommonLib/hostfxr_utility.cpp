@@ -152,7 +152,7 @@ HOSTFXR_UTILITY::GetHostFxrParameters(
         if (!hostFxrPath.has_value())
         {
             hr = HRESULT_FROM_WIN32(ERROR_FILE_NOT_FOUND);
-            return E_FAIL;
+            return hr;
         }
 
         RETURN_IF_FAILED(HOSTFXR_UTILITY::ParseHostfxrArguments(
