@@ -158,7 +158,7 @@ namespace Microsoft.AspNetCore.Server.IISIntegration.FunctionalTests
 
             Assert.Equal(HttpStatusCode.InternalServerError, response.StatusCode);
 
-            EventLogHelpers.VerifyEventLogEvent(TestSink, "Unknown hosting model bogus. Please specify either hostingModel=\"inprocess\" or hostingModel=\"outofprocess\" in the web.config file.");
+            EventLogHelpers.VerifyEventLogEvent(TestSink, "Unknown hosting model 'bogus'. Please specify either hostingModel=\"inprocess\" or hostingModel=\"outofprocess\" in the web.config file.");
         }
 
         // Defaults to inprocess specific deployment parameters
